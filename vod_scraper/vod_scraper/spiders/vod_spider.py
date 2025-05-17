@@ -6,6 +6,7 @@ class BaseNamavaSpider(scrapy.Spider):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.processed_ids = set()  
 
     def parse(self, response):
         try:
@@ -15,7 +16,6 @@ class BaseNamavaSpider(scrapy.Spider):
             return
 
         if not results:
-            self.logger.info(f"No more results for {response.url}")
             return
 
         for item in results:
@@ -36,8 +36,17 @@ class BaseNamavaSpider(scrapy.Spider):
         except json.JSONDecodeError:
             return
 
+        source_id = result.get("id")
+        if not source_id:
+            return
+
+        if source_id in self.processed_ids:
+            return
+
+        self.processed_ids.add(source_id)
+
         yield {
-            "source_id": result.get("id"),
+            "source_id": source_id,
             "title": result.get("caption"),
             "lover": result.get("hit"),
             "imdb": result.get("imdb"),
@@ -68,4 +77,5 @@ class NamavaSerialSpider(BaseNamavaSpider):
         "https://www.namava.ir/api/v1.0/category-groups/persian/latest-series?pi=1&ps=20",
         "https://www.namava.ir/api/v2.0/post-groups/1265/medias?pi=1&ps=20",
         "https://www.namava.ir/api/v1.0/category-groups/action/latest-series?pi=1&ps=20",
+        "https://www.namava.ir/api/v1.0/category-groups/Thriller/latest-series?pi=1&ps=20"
     ]
