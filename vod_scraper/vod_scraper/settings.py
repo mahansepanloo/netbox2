@@ -95,11 +95,15 @@ FEED_EXPORT_ENCODING = "utf-8"
 
 #connect_django
 
-import os
 import sys
+import os
 import django
 
-# مسیر پروژه Django شما
-sys.path.append('../netbox2')  # مسیر کامل پروژه Django
-os.environ['DJANGO_SETTINGS_MODULE'] = 'netbox2.settings'  # اسم پروژه Django
+# مسیر پروژه Django (تغییر بده بر اساس مسیر پروژه تو)
+sys.path.append('/home/hp/Desktop/netbox/netbox2')
+os.environ['DJANGO_SETTINGS_MODULE'] = 'netbox2.settings'
 django.setup()
+
+ITEM_PIPELINES = {
+    'vod_scraper.pipelines.NamavaPipeline': 300,
+}

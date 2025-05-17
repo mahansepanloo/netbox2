@@ -4,12 +4,12 @@ from .models import Movie, Series, Genre, Person
 class GenreSerializer(serializers.ModelSerializer):
     class Meta:
         model = Genre
-        fields = ['name']
+        fields = ['name', 'id']
 
 class PersonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Person
-        fields = ['name']
+        fields = ['name',"id"]
 
 class MovieSerializer(serializers.ModelSerializer):
     genres = GenreSerializer(many=True)
@@ -36,5 +36,5 @@ class SeriesSerializer(serializers.ModelSerializer):
         fields = [
             'source_id', 'title', 'release_year',
             'genres', 'directors', 'producers', 'actors',
-            'lover', 'imdb', 'story', 'seasons'
+            'lover', 'imdb', 'story'
         ]

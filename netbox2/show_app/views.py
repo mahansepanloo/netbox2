@@ -6,7 +6,7 @@ from rest_framework.filters import SearchFilter, OrderingFilter
 from django.utils.decorators import method_decorator
 
 class MovieViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Movie.objects.all()
+    queryset = Movie.objects.prefetch_related('genres', 'directors', 'producers', 'actors').all()
     serializer_class = MovieSerializer
     lookup_field = 'source_id'
     filter_backends = [SearchFilter, OrderingFilter]
@@ -22,7 +22,7 @@ class MovieViewSet(viewsets.ReadOnlyModelViewSet):
         return super().retrieve(request, *args, **kwargs)
 
 class SeriesViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Series.objects.all()
+    queryset = Series.objects.prefetch_related('genres', 'directors', 'producers', 'actors').all()
     serializer_class = SeriesSerializer
     lookup_field = 'source_id'
     filter_backends = [SearchFilter, OrderingFilter]

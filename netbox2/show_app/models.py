@@ -67,3 +67,4 @@ class Series(models.Model):
             models.Index(fields=['source_id']),
             models.Index(fields=['release_year']),
         ]
+        
