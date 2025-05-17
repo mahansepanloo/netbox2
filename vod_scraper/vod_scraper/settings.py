@@ -100,6 +100,6 @@ import sys
 import django
 
 # مسیر پروژه Django شما
-sys.path.append('/home/hp/Desktop/netbox/netbox2')  # مسیر کامل پروژه Django
+sys.path.append('../netbox2')  # مسیر کامل پروژه Django
 os.environ['DJANGO_SETTINGS_MODULE'] = 'netbox2.settings'  # اسم پروژه Django
 django.setup()
