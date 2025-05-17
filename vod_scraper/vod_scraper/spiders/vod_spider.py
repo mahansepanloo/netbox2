@@ -65,6 +65,7 @@ class BaseNamavaSpider(scrapy.Spider):
 
 class NamavaMediaSpider(BaseNamavaSpider):
     name = "namava_media_spider"
+    content_type = "movie"
     start_urls = [
         "https://www.namava.ir/api/v1.0/category-groups/persian/latest-movies?pi=1&ps=20",
         "https://www.namava.ir/api/v2.0/post-groups/1264/medias?pi=1&ps=20",
@@ -73,9 +74,11 @@ class NamavaMediaSpider(BaseNamavaSpider):
 
 class NamavaSerialSpider(BaseNamavaSpider):
     name = "namava_serial_spider"
+    content_type = "series"
     start_urls = [
         "https://www.namava.ir/api/v1.0/category-groups/persian/latest-series?pi=1&ps=20",
         "https://www.namava.ir/api/v2.0/post-groups/1265/medias?pi=1&ps=20",
         "https://www.namava.ir/api/v1.0/category-groups/action/latest-series?pi=1&ps=20",
         "https://www.namava.ir/api/v1.0/category-groups/Thriller/latest-series?pi=1&ps=20"
     ]
+
