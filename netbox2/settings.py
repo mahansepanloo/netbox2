@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'drf_yasg',
     "rest_framework",
     "django_filters",
+    'cacheops',
     #apps
     "show_app.apps.ShowAppConfig",
 ]
@@ -150,4 +151,28 @@ SWAGGER_SETTINGS = {
             'in': 'header',
       }
    },
+}
+
+
+#redis
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
+}
+
+CACHEOPS_REDIS = {
+    'host': '127.0.0.1',
+    'port': 6379,
+    'db': 1,
+}
+
+CACHEOPS = {
+    'yourapp.movie': {'ops': 'all', 'timeout': 60*15},
+    'yourapp.series': {'ops': 'all', 'timeout': 60*15},
 }
