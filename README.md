@@ -1,79 +1,130 @@
-Movie and Series Content Management System
-Project Overview
-This project is a content management system (CMS) designed to store and display information about movies and series. It consists of two main components:
 
-Django Backend: A REST API built with Django REST Framework to manage and serve movie and series data.
-Scrapy Scraper: A web scraper to collect movie and series data from the Namava website (namava.ir) and store it in a PostgreSQL database.
+---
 
-The system uses PostgreSQL as the database to store information about movies, series, genres, and persons (directors and actors).
+# 🎬 Movie and Series Content Management System
 
-Project Architecture
-The project is modular and consists of the following components:
-1. Django Backend
+---
 
-Models (models.py):
-Genre: Stores genre information.
-Person: Stores information about individuals (directors and actors).
-BaseContent: An abstract base model for movies and series.
-Movie and Series: Specific models for movies and series.
+## 🔥 Project Overview
 
+A Content Management System (CMS) designed to store and display information about movies and series, consisting of two main components:
 
-Views (views.py):
-MovieViewSet and SeriesViewSet: REST API views for listing, searching, and ordering movies and series.
-Caching (15 minutes) is implemented to improve performance.
+* **Django Backend:** A REST API built with Django REST Framework to manage and serve movie and series data.
+* **Scrapy Scraper:** A web scraper to collect movie and series data from the Namava website (namava.ir) and store it in a PostgreSQL database.
 
+---
 
-Tests (test.py):
-Unit tests to ensure API functionality, including tests for listing, searching, and ordering.
+## 🏗️ Project Architecture
 
+```plaintext
+movie_series_project/
+├── backend/                # Django backend app
+│   ├── models.py           # Models for genres, persons, movies, and series
+│   ├── views.py            # API ViewSets
+│   ├── tests.py            # Unit tests
+│   ├── urls.py             # API endpoints
+│   └── settings.py         # Project settings
+├── vod_scraper/            # Scrapy spiders
+│   ├── spiders/
+│   │   ├── namava_media_spider.py
+│   │   └── namava_serial_spider.py
+│   └── pipeline.py         # Pipeline to save scraped data to DB
+├── requirements.txt        # Dependencies
+└── docker-compose.yml      # Docker config
+```
 
-URLs:
-API endpoints for movies (/api/movies/) and series (/api/series/).
-Swagger and ReDoc documentation for the API.
+---
 
+## 🧱 Components
 
+### 1. Django Backend
 
-2. Scrapy Scraper
+* **Models (models.py)**
 
-Spiders:
-NamavaMediaSpider: Scrapes movie data.
-NamavaSerialSpider: Scrapes series data.
+  ```python
+  class Genre(models.Model):
+      # Stores genres
 
+  class Person(models.Model):
+      # Directors and actors
 
-Pipeline (pipeline.py):
-Saves scraped data to the database using Django models.
-Automatically manages genres, directors, and actors.
+  class BaseContent(models.Model):
+      # Abstract base model for movies and series
 
+  class Movie(BaseContent):
+      # Movie model
 
+  class Series(BaseContent):
+      # Series model
+  ```
 
-3. Database
+* **Views (views.py)**
 
-PostgreSQL: Used for relational data storage.
-Indexes are applied on release_year for improved query performance.
+  * `MovieViewSet` and `SeriesViewSet`: API views for listing, searching, and ordering
+  * 15-minute caching implemented for performance improvement
 
+* **Tests (tests.py)**
 
-Prerequisites
+  * Unit tests for listing, searching, and ordering content
 
-Python 3.8+
-PostgreSQL 12+
-Redis (for caching)
-Scrapy
-Django and Django REST Framework
+* **URLs**
 
+  * `/api/movies/`
+  * `/api/series/`
+  * Swagger and ReDoc API documentation
 
-Setup Instructions
-1. Install Dependencies
+---
+
+### 2. Scrapy Scraper
+
+* **Spiders**
+
+  * `NamavaMediaSpider`: Scrapes movie data
+  * `NamavaSerialSpider`: Scrapes series data
+
+* **Pipeline (pipeline.py)**
+
+  * Saves scraped data to the database using Django models
+  * Automatically manages genres, directors, and actors
+
+---
+
+### 3. Database
+
+* PostgreSQL for relational data storage
+* Indexes on `release_year` to improve query performance
+
+---
+
+## ⚙️ Prerequisites
+
+* Python 3.8+
+* PostgreSQL 12+
+* Redis (for caching)
+* Scrapy
+* Django and Django REST Framework
+
+---
+
+## 🚀 Setup Instructions
+
+### 1. Install dependencies
+
+```bash
 pip install -r requirements.txt
+```
 
-2. Configure the Database
+### 2. Configure PostgreSQL Database
 
-Create a PostgreSQL database:
+Create the database:
 
+```bash
 createdb movie_series_db
+```
 
+Update database settings in `settings.py`:
 
-Update the database settings in settings.py:
-
+```python
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -84,69 +135,86 @@ DATABASES = {
         'PORT': '5432',
     }
 }
+```
 
-3. Run Migrations
+### 3. Run Migrations
+
+```bash
 python manage.py makemigrations
 python manage.py migrate
+```
 
-4. Set Up Redis
+### 4. Install and Start Redis
 
-Install and start Redis:
-
+```bash
 sudo apt-get install redis-server
 systemctl start redis
+```
 
-5. Run the Scraper
+### 5. Run the Scraper
 
-To scrape movie data:
+To scrape movies:
 
+```bash
 scrapy crawl namava_media_spider
+```
 
+To scrape series:
 
-To scrape series data:
-
+```bash
 scrapy crawl namava_serial_spider
+```
 
-6. Start the Django Server
+### 6. Start Django Server
+
+```bash
 python manage.py runserver
+```
 
-7. Access the API
+---
 
-List Movies: GET /api/movies/
-Search Movies: GET /api/movies/?search=Inception
-Order by IMDb: GET /api/movies/?ordering=-imdb
-List Series: GET /api/series/
-API Documentation: http://localhost:8000/swagger/
+## 🌐 Access the API
 
+* List movies: `GET /api/movies/`
+* Search movies: `GET /api/movies/?search=Inception`
+* Order by IMDb rating: `GET /api/movies/?ordering=-imdb`
+* List series: `GET /api/series/`
+* API Documentation:
 
-Running Tests
-To execute unit tests:
+  * Swagger: [http://localhost:8000/swagger/](http://localhost:8000/swagger/)
+  * ReDoc: [http://localhost:8000/redoc/](http://localhost:8000/redoc/)
+
+---
+
+## 🧪 Running Tests
+
+Run unit tests:
+
+```bash
 python manage.py test
+```
 
 Tests cover:
 
-Listing movies and series.
-Searching content by title.
-Ordering by IMDb and release year.
+* Listing movies and series
+* Searching content by title
+* Ordering by IMDb rating and release year
 
+---
 
-API Documentation
-API documentation is available via Swagger and ReDoc:
+## ⭐ Key Features
 
-Swagger: http://localhost:8000/swagger/
-ReDoc: http://localhost:8000/redoc/
+* **Caching:** API responses cached for 15 minutes to boost performance
+* **Scraper:** Avoids duplicate data using `processed_ids`
+* **Database Optimization:** Indexes used to speed up queries
 
+---
 
-Key Features
+## 🔮 Future Enhancements
 
-Caching: API responses are cached for 15 minutes to enhance performance.
-Scraper: Prevents duplicate data processing using processed_ids.
-Database: Indexes are used to optimize query performance.
+* Add authentication to the API
+* Support advanced filtering (e.g., by genre)
+* Enhance scraper to collect additional data (e.g., posters)
 
-
-Future Enhancements
-
-Add authentication to the API.
-Support advanced filtering (e.g., by genre).
-Enhance the scraper to collect additional data (e.g., posters).
+---
 
