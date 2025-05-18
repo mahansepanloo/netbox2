@@ -81,9 +81,9 @@ WSGI_APPLICATION = 'netbox2.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'NETBOX2',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
+        'NAME': 'movie_series_db',
+        'USER': 'your_username',
+        'PASSWORD': 'your_password',
         'HOST': 'localhost',
         'PORT': '5432',
     }
