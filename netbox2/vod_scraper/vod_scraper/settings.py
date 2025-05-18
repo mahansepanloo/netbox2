@@ -99,8 +99,7 @@ import sys
 import os
 import django
 
-# مسیر پروژه Django (تغییر بده بر اساس مسیر پروژه تو)
-sys.path.append('../../netbox2/netbox2')
+sys.path.append('../../netbox2')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'netbox2.settings'
 django.setup()
 
