@@ -81,7 +81,7 @@ WSGI_APPLICATION = 'netbox2.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'netbox',
+        'NAME': 'NETBOX2',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
         'HOST': 'localhost',
