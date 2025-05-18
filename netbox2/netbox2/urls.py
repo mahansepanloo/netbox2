@@ -15,7 +15,7 @@ schema_view = get_schema_view(
 )
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", include("show_app.urls", namespace="show_app")),
+    path("api/", include("show_app.urls", namespace="show_app")),
     path(
         "swagger<format>/", schema_view.without_ui(cache_timeout=0), name="schema-json"
     ),
