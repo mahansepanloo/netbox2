@@ -182,7 +182,6 @@ python manage.py runserver
 * API Documentation:
 
   * Swagger: [http://localhost:8000/swagger/](http://localhost:8000/swagger/)
-  * ReDoc: [http://localhost:8000/redoc/](http://localhost:8000/redoc/)
 
 ---
 
