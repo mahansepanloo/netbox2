@@ -203,7 +203,7 @@ Tests cover:
 
 ## ⭐ Key Features
 
-* **Caching:** API responses cached for 15 minutes to boost performance
+* **Caching:** API responses cached for 1 minutes to boost performance
 * **Scraper:** Avoids duplicate data using `processed_ids`
 * **Database Optimization:** Indexes used to speed up queries
 
