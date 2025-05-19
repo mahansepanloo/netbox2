@@ -27,7 +27,7 @@ movie_series_project/
 ├── vod_scraper/            # Scrapy spiders
 │   ├── spiders/
 │   │   ├── namava_media_spider.py
-│   │   └── namava_serial_spider.py
+│   │   
 │   └── pipeline.py         # Pipeline to save scraped data to DB
 ├── requirements.txt        # Dependencies
 └── docker-compose.yml      # Docker config
